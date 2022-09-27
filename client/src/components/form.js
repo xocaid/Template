@@ -1,63 +1,91 @@
 import { useState } from "react";
 
 const Form = (props) => {
-  const [student, setStudent] = useState({
-    firstname: "",
-    lastname: "",
+  const [speciesForm, setSpeciesForm] = useState({
+    name: "",
+    type: "",
+    population: "",
+    created_on:"",
   });
 
   //create functions that handle the event of the user typing into the form
   const handleNameChange = (event) => {
-    const firstname = event.target.value;
-    setStudent((student) => ({ ...student, firstname }));
+    const speciesName = event.target.value;
+    setSpeciesForm((species) => ({ ...species, name: speciesName }));
   };
 
-  const handleLastnameChange = (event) => {
-    const lastname = event.target.value;
-    setStudent((student) => ({ ...student, lastname }));
+  const handleTypeChange = (event) => {
+    const speciesType= event.target.value;
+    setSpeciesForm((species) => ({ ...species, type: speciesType}));
+  };
+  const handlePopulationChange = (event) => {
+    const speciesPopulation= event.target.value;
+    setSpeciesForm((species) => ({ ...species, population: speciesPopulation}));
+  };
+  const handleCreatedOnChange = (event) => {
+    const speciesCreatedOn= event.target.value;
+    setSpeciesForm((species) => ({ ...species, created_on: speciesCreatedOn}));
   };
 
   //A function to handle the post request
-  const postStudent = (newStudent) => {
-    return fetch("http://localhost:5000/api/students", {
+  const postSpecies = (newSpecies) => {
+    return fetch("http://localhost:5000/api/species", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newStudent),
+      body: JSON.stringify(newSpecies),
     })
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         console.log("From the post ", data);
-        props.addStudent(data);
+        props.addSpecies(data);
       });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postStudent(student);
+    postSpecies(speciesForm);
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <fieldset>
-        <label>First Name</label>
+        <label>Name</label>
         <input
           type="text"
-          id="add-user-name"
-          placeholder="First Name"
+          id="add-name"
+          placeholder="Name"
           required
-          value={student.name}
+          value={speciesForm.name}
           onChange={handleNameChange}
         />
-        <label>Last Name</label>
+        <label>Type</label>
         <input
           type="text"
-          id="add-user-lastname"
-          placeholder="Last Name"
+          id="add-type"
+          placeholder="Type"
           required
-          value={student.lastname}
-          onChange={handleLastnameChange}
+          value={speciesForm.type}
+          onChange={handleTypeChange}
+        />
+                <label>Population</label>
+        <input
+          type="text"
+          id="add-poopulation"
+          placeholder="Population"
+          required
+          value={speciesForm.population}
+          onChange={handlePopulationChange}
+        />
+                        <label>Created On</label>
+                <input
+          type="text"
+          id="add-createdon"
+          placeholder="CreatedOn"
+          required
+          value={speciesForm.created_on}
+          onChange={handleCreatedOnChange}
         />
       </fieldset>
       <button type="submit">Add</button>

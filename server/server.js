@@ -14,8 +14,9 @@ app.get('/', (req, res) => {
   res.json({ message: 'Hello from My template ExpressJS' });
 });
 
-// create the get request
-app.get('/api/students', cors(), async (req, res) => {
+//****************** SPECIES *****************
+// create the GET request
+app.get('/api/species', cors(), async (req, res) => {
   // const STUDENTS = [
 
   //     { id: 1, firstName: 'Lisa', lastName: 'Lee' },
@@ -26,26 +27,50 @@ app.get('/api/students', cors(), async (req, res) => {
   // ];
   // res.json(STUDENTS);
   try {
-    const { rows: students } = await db.query('SELECT * FROM students');
-    res.send(students);
+    const { rows: species } = await db.query('SELECT * FROM species');
+    res.send(species);
   } catch (e) {
     return res.status(400).json({ e });
   }
 });
 
 // create the POST request
-app.post('/api/students', cors(), async (req, res) => {
-  const newUser = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
+app.post('/api/species', cors(), async (req, res) => {
+  const newSpecies = {
+    name: req.body.name,
+    type: req.body.type,
+    population: req.body.population,
+    created_on: req.body.created_on,
   };
-  console.log([newUser.firstname, newUser.lastname]);
+  console.log([newSpecies.name, newSpecies.type, newSpecies.population,newSpecies.created_on]);
   const result = await db.query(
-    'INSERT INTO students(firstname, lastname) VALUES($1, $2) RETURNING *',
-    [newUser.firstname, newUser.lastname],
+    'INSERT INTO species(name, type, population, created_on) VALUES($1, $2, $3, $4) RETURNING *',
+    [newSpecies.name, newSpecies.type, newSpecies.population,newSpecies.created_on],
   );
   console.log(result.rows[0]);
   res.json(result.rows[0]);
+});
+
+//****************** INDIVIDUALS *****************
+// create the GET request
+app.get('/api/individuals', cors(), async (req, res) => {
+  try {
+    const { rows: individuals } = await db.query('SELECT * FROM individuals');
+    res.send(individuals);
+  } catch (e) {
+    return res.status(400).json({ e });
+  }
+});
+
+//****************** SIGHTINGS *****************
+// create the GET request
+app.get('/api/sightings', cors(), async (req, res) => {
+  try {
+    const { rows: sightings } = await db.query('SELECT * FROM sightings');
+    res.send(sightings);
+  } catch (e) {
+    return res.status(400).json({ e });
+  }
 });
 
 // console.log that your server is up and running
