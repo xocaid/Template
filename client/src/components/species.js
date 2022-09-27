@@ -21,14 +21,24 @@ function Species() {
   return (
     <div className="species">
       <h2> List of Species </h2>
-      <ul>
+      <table class ="species-table">
+        <thead>
+          <tr>
+            <th>Species Name</th>
+            <th>Type</th>
+            <th> Population</th>
+          </tr>
+        </thead>
+        <tbody>
         {species.map((singSpecies) => (
-          <li key={singSpecies.id}>
-            {" "}
-            {singSpecies.name} {singSpecies.type} {singSpecies.population}
-          </li>
+          <tr key={singSpecies.id}>
+            <td>{singSpecies.name} </td>
+            <td>{singSpecies.type} </td>
+            <td> {singSpecies.population}</td>
+          </tr>
         ))}
-      </ul>
+        </tbody>
+  </table>
       <Form addSpecies={addSpecies} />
     </div>
   );

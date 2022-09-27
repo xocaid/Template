@@ -17,15 +17,6 @@ app.get('/', (req, res) => {
 //****************** SPECIES *****************
 // create the GET request
 app.get('/api/species', cors(), async (req, res) => {
-  // const STUDENTS = [
-
-  //     { id: 1, firstName: 'Lisa', lastName: 'Lee' },
-  //     { id: 2, firstName: 'Eileen', lastName: 'Long' },
-  //     { id: 3, firstName: 'Fariba', lastName: 'Dadko' },
-  //     { id: 4, firstName: 'Cristina', lastName: 'Rodriguez' },
-  //     { id: 5, firstName: 'Andrea', lastName: 'Trejo' },
-  // ];
-  // res.json(STUDENTS);
   try {
     const { rows: species } = await db.query('SELECT * FROM species');
     res.send(species);
@@ -42,10 +33,10 @@ app.post('/api/species', cors(), async (req, res) => {
     population: req.body.population,
     created_on: req.body.created_on,
   };
-  console.log([newSpecies.name, newSpecies.type, newSpecies.population,newSpecies.created_on]);
+  console.log([newSpecies.name, newSpecies.type, newSpecies.population, newSpecies.created_on]);
   const result = await db.query(
     'INSERT INTO species(name, type, population, created_on) VALUES($1, $2, $3, $4) RETURNING *',
-    [newSpecies.name, newSpecies.type, newSpecies.population,newSpecies.created_on],
+    [newSpecies.name, newSpecies.type, newSpecies.population, newSpecies.created_on],
   );
   console.log(result.rows[0]);
   res.json(result.rows[0]);
