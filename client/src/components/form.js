@@ -5,7 +5,7 @@ const Form = (props) => {
     name: "",
     type: "",
     population: "",
-    created_on:"",
+    created_on: "",
   });
 
   //create functions that handle the event of the user typing into the form
@@ -15,16 +15,16 @@ const Form = (props) => {
   };
 
   const handleTypeChange = (event) => {
-    const speciesType= event.target.value;
-    setSpeciesForm((species) => ({ ...species, type: speciesType}));
+    const speciesType = event.target.value;
+    setSpeciesForm((species) => ({ ...species, type: speciesType }));
   };
   const handlePopulationChange = (event) => {
-    const speciesPopulation= event.target.value;
-    setSpeciesForm((species) => ({ ...species, population: speciesPopulation}));
+    const speciesPopulation = event.target.value;
+    setSpeciesForm((species) => ({ ...species, population: speciesPopulation }));
   };
   const handleCreatedOnChange = (event) => {
-    const speciesCreatedOn= event.target.value;
-    setSpeciesForm((species) => ({ ...species, created_on: speciesCreatedOn}));
+    const speciesCreatedOn = event.target.value;
+    setSpeciesForm((species) => ({ ...species, created_on: speciesCreatedOn }));
   };
 
   //A function to handle the post request
@@ -60,6 +60,8 @@ const Form = (props) => {
           value={speciesForm.name}
           onChange={handleNameChange}
         />
+        <br />
+
         <label>Type</label>
         <input
           type="text"
@@ -69,7 +71,9 @@ const Form = (props) => {
           value={speciesForm.type}
           onChange={handleTypeChange}
         />
-                <label>Population</label>
+        <br />
+
+        <label>Population</label>
         <input
           type="text"
           id="add-poopulation"
@@ -78,8 +82,10 @@ const Form = (props) => {
           value={speciesForm.population}
           onChange={handlePopulationChange}
         />
-                        <label>Created On</label>
-                <input
+        <br />
+        
+        <label>Created On</label>
+        <input
           type="text"
           id="add-createdon"
           placeholder="CreatedOn"
